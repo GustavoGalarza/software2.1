@@ -1,0 +1,49 @@
+public function up(): void
+    {
+        Schema::create('users', function (Blueprint $table) {
+            $table->id();
+            $table->string('name')->nullable();
+            $table->string('email')->unique();
+            $table->string('username')->unique();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('password');
+            $table->rememberToken();
+            $table->timestamps();
+        });
+    }
+
+
+
+public function up(): void
+    {
+        Schema::create('users', function (Blueprint $table) {
+            $table->id();
+            $table->string('name')->nullable();
+            $table->string('email')->unique();
+            $table->string('username')->unique();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('password')->nullable();
+            $table->string('provider_id')->nullable();
+            $table->rememberToken();
+            $table->timestamps();
+        });
+    }
+
+
+Route::get('/auth/github/redirect', function () {
+    return Socialite::driver('github')->redirect();
+});
+ 
+Route::get('/auth/github/callback', function () {
+    $githubUser = Socialite::driver('github')->user();
+ 
+    $user = User::create([
+        'email'=>$githubUser->getEmail(),
+        'name'=>$githubUser->getName(),
+        'provider_id'=>$githubUser->getId(), 
+
+    ]);
+    auth()->login($user, true);
+    // $user->token
+    return redirect('/home');
+});
