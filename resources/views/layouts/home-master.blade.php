@@ -6,11 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Aplicación de Login</title>
     <link rel="stylesheet" href="{{url('assets/css/bootstrap.min.css')}}">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.18.0/font/bootstrap-icons.css">
+
+    <style>
+        
+    </style>
 </head>
 <body>
-    @include('layouts.partials.navbar')
-
-    <main class="container">
+    
+    @include('layouts.partials.auth-navbar')
+    <main class="form-container">
         @yield('content')
     </main>
     @include('layouts.partials.footer')

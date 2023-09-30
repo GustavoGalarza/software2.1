@@ -52,8 +52,10 @@ color: yellow;
     <main class="form-container">
         @yield('content')
     </main>
+   
     <script src="{{url('assets/js/bootstrap.bundle.min.js')}}">
 
     </script>
+    
 </body>
 </html>
