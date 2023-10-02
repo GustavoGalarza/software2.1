@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\GitHubAuthController;
 use App\Http\Controllers\GoogleAuthController;
-
+use App\Http\Controllers\ClienteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,3 +49,16 @@ Route::get('/auth/github/callback', [GitHubAuthController::class, 'handleCallbac
 
 Route::get('/auth/google', [GoogleAuthController::class, 'redirectToGoogle']);
 Route::get('/auth/google/callback', [GoogleAuthController::class, 'handleCallback']);
+
+
+// Rutas para mostrar todos los clientes y el formulario para crear uno nuevo
+Route::get('/clientes', [ClienteController::class, 'index'])->name('clientes.index');
+Route::get('/clientes/create', [ClienteController::class, 'create'])->name('clientes.create');
+Route::post('/clientes', [ClienteController::class, 'store'])->name('clientes.store');
+
+// Rutas para mostrar un cliente, el formulario para editar y actualizar, y eliminar
+Route::get('/clientes/{cliente}', [ClienteController::class, 'show'])->name('clientes.show');
+Route::get('/clientes/{cliente}/edit', [ClienteController::class, 'edit'])->name('clientes.edit');
+Route::put('/clientes/{cliente}', [ClienteController::class, 'update'])->name('clientes.update');
+Route::delete('/clientes/{cliente}', [ClienteController::class, 'destroy'])->name('clientes.destroy');
+
