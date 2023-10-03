@@ -20,6 +20,7 @@
                             <th>Comuna</th>
                             <th>Ciudad</th>
                             <th>Teléfono</th>
+                            <th>Imagen</th> <!-- Agregamos una columna para mostrar la imagen -->
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -33,6 +34,13 @@
                                 <td>{{ $cliente->direccion_comuna }}</td>
                                 <td>{{ $cliente->direccion_ciudad }}</td>
                                 <td>{{ $cliente->telefono }}</td>
+                                <td>
+                                    @if ($cliente->image)
+                                        <img src="{{ asset('storage/' . $cliente->image) }}" alt="{{ $cliente->nombre }}" style="max-width: 100px;">
+                                    @else
+                                        Sin imagen
+                                    @endif
+                                </td>
                                 <td>
                                     <a href="{{ route('clientes.show', $cliente) }}" class="btn btn-info">Ver</a>
                                     <a href="{{ route('clientes.edit', $cliente) }}" class="btn btn-primary">Editar</a>

@@ -37,6 +37,14 @@
                             <td>{{ $cliente->telefono }}</td>
                         </tr>
                         @endif
+                        @if ($cliente->image)
+                        <tr>
+                            <th>Imagen:</th>
+                            <td>
+                                <img src="{{ asset('storage/' . $cliente->image) }}" alt="Imagen del cliente" class="img-thumbnail">
+                            </td>
+                        </tr>
+                        @endif
                     </tbody>
                 </table>
                 <a href="{{ route('clientes.index') }}" class="btn btn-secondary">Volver</a>

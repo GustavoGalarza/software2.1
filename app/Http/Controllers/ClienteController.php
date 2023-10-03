@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Cliente;
+use Illuminate\Support\Facades\Storage;
 
 class ClienteController extends Controller
 {
@@ -31,9 +32,17 @@ class ClienteController extends Controller
             'direccion_comuna' => 'required',
             'direccion_ciudad' => 'required',
             'telefono' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120', 
         ]);
 
-        Cliente::create($request->all());
+        $clienteData = $request->except('image');
+
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('clientes/images', 'public'); // Almacenar la imagen en la carpeta 'clientes/images'
+            $clienteData['image'] = $imagePath;
+        }
+
+        Cliente::create($clienteData);
         return redirect()->route('clientes.index')->with('success', 'Cliente agregado exitosamente.');
     }
 
@@ -59,15 +68,33 @@ class ClienteController extends Controller
             'direccion_comuna' => 'required',
             'direccion_ciudad' => 'required',
             'telefono' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validación de la imagen
         ]);
 
-        $cliente->update($request->all());
+        $clienteData = $request->except(['_method', '_token', 'image']);
+
+        if ($request->hasFile('image')) {
+            // Eliminar la imagen anterior si existe
+            if ($cliente->image) {
+                Storage::delete($cliente->image);
+            }
+
+            $imagePath = $request->file('image')->store('clientes/images', 'public');
+            $clienteData['image'] = $imagePath;
+        }
+
+        $cliente->update($clienteData);
         return redirect()->route('clientes.index')->with('success', 'Cliente actualizado exitosamente.');
     }
 
     // Eliminar un cliente de la base de datos
     public function destroy(Cliente $cliente)
     {
+        // Eliminar la imagen asociada al cliente si existe
+        if ($cliente->image) {
+            Storage::delete($cliente->image);
+        }
+
         $cliente->delete();
         return redirect()->route('clientes.index')->with('success', 'Cliente eliminado exitosamente.');
     }

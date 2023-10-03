@@ -8,7 +8,7 @@
                     <div class="card-header bg-dark text-white">Agregar Cliente</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('clientes.store') }}">
+                        <form method="POST" action="{{ route('clientes.store') }}" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group">
                                 <label for="rut">RUT:</label>
@@ -37,6 +37,10 @@
                             <div class="form-group">
                                 <label for="telefono">Teléfono:</label>
                                 <input type="text" class="form-control" id="telefono" name="telefono">
+                            </div>
+                            <div class="form-group">
+                                <label for="image">Imagen:</label>
+                                <input type="file" class="form-control" id="image" name="image">
                             </div>
                             <div class="text-center">
                                 <button type="submit" class="btn btn-success">Agregar</button>

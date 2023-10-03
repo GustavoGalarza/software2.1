@@ -22,5 +22,8 @@ class Cliente extends Model
         'direccion_comuna',
         'direccion_ciudad',
         'telefono',
+        'image', 
     ];
+    
+    
 }
