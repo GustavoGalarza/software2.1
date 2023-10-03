@@ -32,13 +32,14 @@ class ClienteController extends Controller
             'direccion_comuna' => 'required',
             'direccion_ciudad' => 'required',
             'telefono' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120', 
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120',
+
         ]);
 
         $clienteData = $request->except('image');
 
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('clientes/images', 'public'); // Almacenar la imagen en la carpeta 'clientes/images'
+            $imagePath = $request->file('image')->store('clientes/images', 'public');
             $clienteData['image'] = $imagePath;
         }
 
@@ -68,26 +69,27 @@ class ClienteController extends Controller
             'direccion_comuna' => 'required',
             'direccion_ciudad' => 'required',
             'telefono' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validación de la imagen
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120',
+            // Validación de la imagen
         ]);
-
-        $clienteData = $request->except(['_method', '_token', 'image']);
-
+    
+        $clienteData = $request->except(['_method', '_token']);
+    
         if ($request->hasFile('image')) {
-            // Eliminar la imagen anterior si existe
             if ($cliente->image) {
-                Storage::delete($cliente->image);
+                // Elimina la imagen anterior
+                Storage::delete('public/' . $cliente->image);
             }
-
+    
             $imagePath = $request->file('image')->store('clientes/images', 'public');
             $clienteData['image'] = $imagePath;
         }
-
+    
         $cliente->update($clienteData);
         return redirect()->route('clientes.index')->with('success', 'Cliente actualizado exitosamente.');
     }
-
-    // Eliminar un cliente de la base de datos
+    
+    
     public function destroy(Cliente $cliente)
     {
         // Eliminar la imagen asociada al cliente si existe

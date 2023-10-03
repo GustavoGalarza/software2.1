@@ -20,7 +20,7 @@
                             <th>Comuna</th>
                             <th>Ciudad</th>
                             <th>Teléfono</th>
-                            <th>Imagen</th> <!-- Agregamos una columna para mostrar la imagen -->
+                            <th>Imagen</th> 
                             <th>Acciones</th>
                         </tr>
                     </thead>
