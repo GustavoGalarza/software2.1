@@ -57,18 +57,18 @@ Route::get('/clientes', [ClienteController::class, 'index'])->name('clientes.ind
 Route::get('/clientes/create', [ClienteController::class, 'create'])->name('clientes.create');
 Route::post('/clientes', [ClienteController::class, 'store'])->name('clientes.store');
 
-//Rutas para mostrar todos los Proveedores y el formulario para crear uno nuevo
-Route::get('/proveedores',[ProveedoresController::class,'index'])->name('proveedores.index');
-Route::get('/proveedores/create',[ProveedoresController::class,'create'])->name('proveedores.create');
-Route::get('/proveedores/edit',[ProveedoresController::class,'edit'])->name('proveedores.edit');
-//Route::get('/proveedores/',[ProveedoresController::class,'create'])->name('proveedores.create');
-//Route::get('/proveedores/',[ProveedoresController::class,'create'])->name('proveedores.create');
-//Route::get('/proveedores/',[ProveedoresController::class,'create'])->name('proveedores.create');
-//Route::get('/proveedores/c',[ProveedoresController::class,'create'])->name('proveedores.create');
-
 // Rutas para mostrar un cliente, el formulario para editar y actualizar, y eliminar
 Route::get('/clientes/{cliente}', [ClienteController::class, 'show'])->name('clientes.show');
 Route::get('/clientes/{cliente}/edit', [ClienteController::class, 'edit'])->name('clientes.edit');
 Route::put('/clientes/{cliente}', [ClienteController::class, 'update'])->name('clientes.update');
 Route::delete('/clientes/{cliente}', [ClienteController::class, 'destroy'])->name('clientes.destroy');
+
+//Rutas para mostrar todos los Proveedores y el formulario para crear uno nuevo
+Route::get('/proveedores',[ProveedoresController::class,'index'])->name('proveedores.index');
+Route::get('/proveedores/create',[ProveedoresController::class,'create'])->name('proveedores.create');
+Route::get('/proveedores/edit/{nombre}',[ProveedoresController::class,'edit'])->name('proveedores.edit');
+Route::get('/proveedores/show',[ProveedoresController::class,'show'])->name('proveedores.show');
+Route::post('/proveedores/store',[ProveedoresController::class,'store'])->name('proveedores.store');
+//Route::get('/proveedores/',[ProveedoresController::class,'create'])->name('proveedores.create');
+//Route::get('/proveedores/c',[ProveedoresController::class,'create'])->name('proveedores.create');
 
