@@ -10,6 +10,7 @@ use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\GitHubAuthController;
 use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\ProveedoresController;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,6 +56,15 @@ Route::get('/auth/google/callback', [GoogleAuthController::class, 'handleCallbac
 Route::get('/clientes', [ClienteController::class, 'index'])->name('clientes.index');
 Route::get('/clientes/create', [ClienteController::class, 'create'])->name('clientes.create');
 Route::post('/clientes', [ClienteController::class, 'store'])->name('clientes.store');
+
+//Rutas para mostrar todos los Proveedores y el formulario para crear uno nuevo
+Route::get('/proveedores',[ProveedoresController::class,'index'])->name('proveedores.index');
+Route::get('/proveedores/create',[ProveedoresController::class,'create'])->name('proveedores.create');
+Route::get('/proveedores/edit',[ProveedoresController::class,'edit'])->name('proveedores.edit');
+//Route::get('/proveedores/',[ProveedoresController::class,'create'])->name('proveedores.create');
+//Route::get('/proveedores/',[ProveedoresController::class,'create'])->name('proveedores.create');
+//Route::get('/proveedores/',[ProveedoresController::class,'create'])->name('proveedores.create');
+//Route::get('/proveedores/c',[ProveedoresController::class,'create'])->name('proveedores.create');
 
 // Rutas para mostrar un cliente, el formulario para editar y actualizar, y eliminar
 Route::get('/clientes/{cliente}', [ClienteController::class, 'show'])->name('clientes.show');
