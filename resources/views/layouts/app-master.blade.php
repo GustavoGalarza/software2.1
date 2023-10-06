@@ -7,6 +7,7 @@
     <title>Gestion de Ventas</title>
     <link rel="stylesheet" href="{{url('assets/css/bootstrap.min.css')}}">
 </head>
+
 <body>
     @include('layouts.partials.navbar')
 

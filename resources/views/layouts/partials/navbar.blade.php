@@ -44,6 +44,10 @@
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <li><a class="dropdown-item" href="#">Información</a></li>
                 <li><a class="dropdown-item" href="#">Configuración</a></li>
+                @role('admin')
+                <li><a class="dropdown-item" href="{{ route('users.index') }}">Roles</a></li>
+                @endrole
+               
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="/logout">Cerrar sesión</a></li>
               </ul>
