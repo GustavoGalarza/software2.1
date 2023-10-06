@@ -1,6 +1,7 @@
 @extends('layouts.app-master')
 
 @section('content')
+@include('layouts.partials.messages')
     <style>
         .feature-image {
             max-width: 100%;
@@ -13,11 +14,14 @@
         }
     </style>
     <div class="container mt-5">
+
         <div class="row justify-content-center">
+            
             @role('admin')
                 <h1>Bienvenido Admin: {{ auth()->user()->name ?? auth()->user()->username }}</h1>
             @endrole
             <div class="col-md-12">
+                 
                 <div class="card">
                     <div class="card-header">Bienvenido a la Plataforma de Gestión de Ventas</div>
 

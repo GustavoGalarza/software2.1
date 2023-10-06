@@ -45,7 +45,7 @@
                 <li><a class="dropdown-item" href="#">Información</a></li>
                 <li><a class="dropdown-item" href="#">Configuración</a></li>
                 @role('admin')
-                <li><a class="dropdown-item" href="{{ route('users.index') }}">Roles</a></li>
+                <li><a class="dropdown-item" href="{{ route('roles.index') }}">Roles</a></li>
                 @endrole
                
                 <li><hr class="dropdown-divider"></li>

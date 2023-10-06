@@ -10,7 +10,8 @@ use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\GitHubAuthController;
 use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\ClienteController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\RoleController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -53,15 +54,24 @@ Route::get('/auth/google/callback', [GoogleAuthController::class, 'handleCallbac
 
 // Rutas para mostrar todos los clientes y el formulario para crear uno nuevo
 Route::get('/clientes', [ClienteController::class, 'index'])->name('clientes.index');
-Route::get('/clientes/create', [ClienteController::class, 'create'])->middleware('can:clientes.index')->name('clientes.create');
-Route::post('/clientes', [ClienteController::class, 'store'])->middleware('can:clientes.index')->name('clientes.store');
+
+Route::middleware(['auth', 'checkrole:admin,employee'])->group(function () {
+Route::get('/clientes/create', [ClienteController::class, 'create'])->name('clientes.create');
+Route::post('/clientes', [ClienteController::class, 'store'])->name('clientes.store');
 
 // Rutas para mostrar un cliente, el formulario para editar y actualizar, y eliminar
-Route::get('/clientes/{cliente}', [ClienteController::class, 'show'])->middleware('can:clientes.index')->name('clientes.show');
-Route::get('/clientes/{cliente}/edit', [ClienteController::class, 'edit'])->middleware('can:clientes.index')->name('clientes.edit');
-Route::put('/clientes/{cliente}', [ClienteController::class, 'update'])->middleware('can:clientes.index')->name('clientes.update');
-Route::delete('/clientes/{cliente}', [ClienteController::class, 'destroy'])->middleware('can:clientes.index')->name('clientes.destroy');
+Route::get('/clientes/{cliente}', [ClienteController::class, 'show'])->name('clientes.show');
+Route::get('/clientes/{cliente}/edit', [ClienteController::class, 'edit'])->name('clientes.edit');
+Route::put('/clientes/{cliente}', [ClienteController::class, 'update'])->name('clientes.update');
+Route::delete('/clientes/{cliente}', [ClienteController::class, 'destroy'])->name('clientes.destroy');
+});
+
 
 Route::middleware(['admin'])->group(function () {
-    Route::resource('users', UserController::class);
+    Route::resource('roles', RoleController::class)->parameters([
+        'roles' => 'user' // Cambiar 'roles' por 'user' como parámetro
+    ]);
+
+    // Cambia la ruta para eliminar la relación entre usuario y rol
+    Route::delete('roles/{user}/{role}', [RoleController::class, 'destroy'])->name('roles.destroy');
 });
