@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use App\Events\PasswordShownEvent;
 class LoginController extends Controller
 {
     public function show(){
@@ -25,6 +25,9 @@ class LoginController extends Controller
         $user = Auth::getProvider()->retrieveByCredentials($credentials);
 
         Auth::login($user);
+        if ($request->has('showPassword') && $request->input('showPassword') == true) {
+            event(new PasswordShownEvent());
+        }
         
         return $this->authenticated($request, $user);
     }

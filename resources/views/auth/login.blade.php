@@ -15,6 +15,8 @@
             <label for="exampleInputPassword1" class="form-label">Password</label>
             <input type="password" name="password" class="form-control" id="exampleInputPassword1">
           </div>
+          <div class="show-password">
+            <input type="checkbox" id="showPassword">Mostrar</div>
           <div class="mb-2">
             <p>No tienes una cuenta?<a href="/register"> Registrate aqui</a></p>
           </div>
@@ -29,6 +31,16 @@
             </a>
         </div>
         </form>
+        <script>
+          document.addEventListener('DOMContentLoaded', function () {
+              var passwordInput = document.getElementById('exampleInputPassword1');
+              var showPasswordCheckbox = document.getElementById('showPassword');
+  
+              showPasswordCheckbox.addEventListener('change', function () {
+                  passwordInput.type = showPasswordCheckbox.checked ? 'text' : 'password';
+              });
+          });
+      </script>
   @endsection
     
 
