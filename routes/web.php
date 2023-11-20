@@ -69,9 +69,9 @@ Route::delete('/clientes/{cliente}', [ClienteController::class, 'destroy'])->nam
 
 Route::middleware(['admin'])->group(function () {
     Route::resource('roles', RoleController::class)->parameters([
-        'roles' => 'user' // Cambiar 'roles' por 'user' como parámetro
+        'roles' => 'user' 
     ]);
 
-    // Cambia la ruta para eliminar la relación entre usuario y rol
+    
     Route::delete('roles/{user}/{role}', [RoleController::class, 'destroy'])->name('roles.destroy');
 });

@@ -10,7 +10,7 @@ class CheckRole
     public function handle($request, Closure $next, ...$roles)
     {
         if (!auth()->check()) {
-            return redirect('/login'); // Redirige al inicio de sesión si el usuario no está autenticado.
+            return redirect('/login'); 
         }
 
         foreach ($roles as $role) {
@@ -19,7 +19,6 @@ class CheckRole
             }
         }
 
-        // Si no tiene el rol necesario
         Session::flash('error', 'No tienes el rol necesario para ver este contenido.');
         return redirect('/home');
     }
